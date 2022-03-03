@@ -1,0 +1,25 @@
+version: '2.1'
+services:
+  redis:
+    hostname: redis.magento2.docker
+    image: 'redis:5.0'
+    volumes:
+      - '.:/app:delegated'
+    ports:
+      - 6379
+    sysctls:
+      net.core.somaxconn: 1024
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    healthcheck:
+      test: 'redis-cli ping || exit 1'
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    networks:
+      magento:
+        aliases:
+          - redis.magento2.docker
