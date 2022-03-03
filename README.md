@@ -32,7 +32,7 @@ Inside `./`
 
 Load using modular compose files
 
-    docker-compose -f docker-compose.yml -f docker-compose.php74.yml -f docker-compose.elasticsarch7.7.yml -f docker-compose.redis5.yml -f docker-compose.tls1.19.yml -f docker-compose.nginx1.19.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose.php74.yml -f docker-compose.elasticsearch7.7.yml -f docker-compose.redis5.yml -f docker-compose.tls1.19.yml -f docker-compose.nginx1.19.yml up -d
 
     ### Bring up docker
 
