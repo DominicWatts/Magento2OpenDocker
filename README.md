@@ -1,6 +1,6 @@
 # Magento 2 Cloud Docker
 
-Collection of Magento 2 Cloud Docker docker-compose configuration files
+Collection of Magento 2 Cloud Docker docker-compose configuration files for running open source with Magento 2 Cloud Docker development environment.
 
 ## How these are built
 
@@ -76,7 +76,7 @@ Using development tool from here
 127.0.0.1 magento2.docker
 ## Using docker
 
-### Download Magento to work director
+### Download Magento to work directory
 
     wget -qO- https://magento.mirror.hypernode.com/releases/magento2-2.4.3.tar.gz | tar xfz -
     
