@@ -1,10 +1,12 @@
-# WIP Modular Magentno 2 Cloud Docker Compose config files
+# Magento 2 Cloud Docker Compose config files
 
 Collection of Magento 2 Cloud Docker docker-compose configuration files for running open source with Magento 2 Cloud Docker development environment.
 
 ## 1 Fetch from git
 
 git clone git@github.com:DominicWatts/Magento2CloudDocker.git ./
+
+rm .git -rf
 
 ## 2 Add the following entry to OS hosts file
 
@@ -30,13 +32,7 @@ Download magento from https://magento.com/tech-resources/download
 
 Inside `./`
 
-Load using modular compose files
-
-    docker-compose -f docker-compose.yml -f docker-compose.php74.yml -f docker-compose.elasticsarch7.7.yml -f docker-compose.redis5.yml -f docker-compose.tls1.19.yml -f docker-compose.nginx1.19.yml up -d
-
-    ### Bring up docker
-
-    docker-compose up -d
+docker-compose up -d
 
 ## 5 inside shell container
 
