@@ -1,4 +1,4 @@
-# WIP Modular Cloud Docker Compose
+# WIP Modular Magentno 2 Cloud Docker Compose config files
 
 Collection of Magento 2 Cloud Docker docker-compose configuration files for running open source with Magento 2 Cloud Docker development environment.
 
@@ -30,4 +30,34 @@ Download magento from https://magento.com/tech-resources/download
 
 Inside `./`
 
-docker-compose -f php74.yml up -d
+Load using modular compose files
+
+    docker-compose -f docker-compose.yml -f docker-compose.php74.yml -f docker-compose.elasticsarch7.7.yml -f docker-compose.redis5.yml -f docker-compose.tls1.19.yml -f docker-compose.nginx1.19.yml up -d
+
+    ### Bring up docker
+
+    docker-compose up -d
+
+## 5 inside shell container
+
+    docker-compose run --rm deploy
+
+### 5.1 Install
+
+    bin/magento setup:install --admin-firstname Admin --admin-lastname User --admin-email dominic@xigen.co.uk --admin-user admin --admin-password test123 --base-url http://magento2.docker/ --base-url-secure https://magento2.docker/ --backend-frontname xpanel --db-host db --db-name magento2 --db-user magento2 --db-password magento2 --language en_GB --currency GBP --timezone UTC --use-rewrites 1 --session-save files --use-secure 1 --use-secure-admin 1 --elasticsearch-host elasticsearch --elasticsearch-port 9200
+
+### 5.2 Disable 2FA
+
+    bin/magento module:disable "Magento_TwoFactorAuth"
+
+## 6 Outside shell container
+
+#### Frontend
+
+    https://magento2.docker/
+
+#### Backend
+
+    https://magento2.docker/xpanel
+
+    admin / test123

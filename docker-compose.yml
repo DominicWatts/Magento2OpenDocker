@@ -1,0 +1,32 @@
+version: '2.1'
+services:
+  db:
+    hostname: db.magento2.docker
+    image: 'mariadb:10.3'
+    shm_size: 2gb
+    environment:
+      - MYSQL_ROOT_PASSWORD=magento2
+      - MYSQL_DATABASE=magento2
+      - MYSQL_USER=magento2
+      - MYSQL_PASSWORD=magento2
+    ports:
+      - '3306:3306'
+    volumes:
+      - '.:/app:delegated'
+      - 'mymagento-magento-db:/var/lib/mysql'
+    healthcheck:
+      test: 'mysqladmin ping -h localhost -pmagento2'
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    networks:
+      magento:
+        aliases:
+          - db.magento2.docker
+volumes:
+  mymagento-magento-db: {  }
+networks:
+  magento:
+    driver: bridge
+  magento-build:
+    driver: bridge
