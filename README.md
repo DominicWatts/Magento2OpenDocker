@@ -34,7 +34,7 @@ Inside `./`
 
 docker-compose up -d
 
-## 5 inside shell container
+## 5 Go inside shell container
 
     docker-compose run --rm deploy
 
