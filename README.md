@@ -32,7 +32,7 @@ Download magento from https://magento.com/tech-resources/download
 
 Inside `./`
 
-docker-compose up -d
+    docker-compose up -d
 
 ## 5 Go inside shell container
 
