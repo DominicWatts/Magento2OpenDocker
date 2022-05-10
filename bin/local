@@ -1,0 +1,123 @@
+#!/bin/bash
+
+COMPOSE=docker-compose.yml
+locales=(en_GB en_US)
+
+USAGE="Local Docker
+
+\033[33mArguments:\033[0m
+  up                Create and start containers
+  down              Destroy containers
+  init              Destroy, re-create and start containers and volumes
+  
+  pull              Pull latest images
+  stop              Stop containers
+  start             Start containers
+  restart           Restart containers
+
+  build             Deployment process
+  cachedev          Development cache settings
+  cacheflush        Flush cache
+  cacheon           All cache on
+  cacheoff          All cache off
+  cli               Connect to bash
+  cron              Run cron
+  db                Connect to db
+  di                Run di compile
+  magento           Run Magento command
+  theme             Run theme compilation
+  upgrade           Run upgrade command
+  
+
+\033[33mOptions:\033[0m
+  -h            show this help text\n"
+
+if [ ${#@} -ne 0 ]; then
+    for arg in "$@"; do
+        if [ "${arg#"-h"}" = "" ]; then
+            printf "$USAGE"
+            exit 0;
+        fi
+    done
+fi;
+
+case "$1" in
+    up)
+        docker-compose -f $COMPOSE up -d
+        ;;
+    down)
+        docker-compose -f $COMPOSE down --remove-orphans
+        ;;
+    init)
+        read -p "Any existing data volumes will be removed. Are you sure? [y/N] " -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            docker-compose -f $COMPOSE down -v --remove-orphans
+            docker-compose -f $COMPOSE up -d
+        fi
+        ;;        
+    pull)
+        docker-compose -f $COMPOSE pull
+        ;;
+    stop)
+        docker-compose -f $COMPOSE stop
+        ;;
+    start)
+        docker-compose -f $COMPOSE start
+        ;;
+    restart)
+        docker-compose -f $COMPOSE restart
+        ;;
+    build)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker-compose -f $COMPOSE run --rm deploy magento-command setup:upgrade
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker-compose -f $COMPOSE run --rm deploy magento-command setup:di:compile
+        for loc in ${locales[@]}; do
+            docker-compose -f $COMPOSE run --rm deploy magento-command setup:static-content:deploy -f $loc -j 4
+        done
+        ;;             
+    cachedev)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:enable
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:disable layout block_html full_page
+        ;;
+    cacheflush)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        ;;
+    cacheon)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:enable
+        ;;
+    cacheoff)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:disable
+        ;;
+    cli)
+        docker-compose -f $COMPOSE run --rm deploy
+        ;;
+    cron)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cron:run
+        ;;
+    db)
+        docker-compose -f $COMPOSE exec db sh -c 'mysql -u magento2 -pmagento2 magento2 "$@"'
+        ;;
+    di)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker-compose -f $COMPOSE run --rm deploy magento-command setup:di:compile
+        ;;
+    magento)
+        docker-compose -f $COMPOSE run --rm deploy magento-command ${@:2}
+        ;;
+    theme)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        for loc in ${locales[@]}; do
+            docker-compose -f $COMPOSE run --rm deploy magento-command setup:static-content:deploy -f $loc -j 4
+        done        
+        ;;
+    upgrade)
+        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker-compose -f $COMPOSE run --rm deploy magento-command setup:upgrade
+        ;;
+    *)
+        printf "$USAGE"
+        exit 0;
+esac
