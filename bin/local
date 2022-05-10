@@ -27,7 +27,7 @@ USAGE="Local Docker
   magento           Run Magento command
   theme             Run theme compilation
   upgrade           Run upgrade command
-  
+  composer          Run composer command
 
 \033[33mOptions:\033[0m
   -h            show this help text\n"
@@ -104,6 +104,9 @@ case "$1" in
         docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
         docker-compose -f $COMPOSE run --rm deploy magento-command setup:di:compile
         ;;
+    composer)
+        docker-compose -f $COMPOSE run --rm deploy composer ${@:2}
+        ;;        
     magento)
         docker-compose -f $COMPOSE run --rm deploy magento-command ${@:2}
         ;;
