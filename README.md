@@ -62,7 +62,7 @@ Inside `./`
 
 SMTP extension config
 
-  - host: `mail`
+  - host: `mailhog`
   - port: `1025`
   - protocol: `none`
   - authentication: `plain`
