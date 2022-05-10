@@ -57,3 +57,13 @@ Inside `./`
     https://magento2.docker/xpanel
 
     admin / test123
+
+## 7 Additional
+
+SMTP extension config
+
+  - host: `mailhog`
+  - port: `1025`
+  - protocol: `none`
+  - authentication: `plain`
+  - username/password: `[blank]`
