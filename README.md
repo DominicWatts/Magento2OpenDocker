@@ -1,4 +1,4 @@
-# Magento 2 Cloud Docker Compose config files
+# Magento 2 Cloud Docker for Open Source
 
 Collection of Magento 2 Cloud Docker docker-compose configuration files for running open source with Magento 2 Cloud Docker development environment.
 
