@@ -122,7 +122,7 @@ case "$1" in
         docker-compose -f $COMPOSE run --rm deploy magento-command setup:upgrade
         ;;
     create)
-        docker-compose -f $COMPOSE run --rm deploy composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition  ${@:2}
+        docker-compose -f $COMPOSE run --rm deploy composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition ${@:2}
         ;;
     *)
         printf "$USAGE"
