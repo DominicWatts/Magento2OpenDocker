@@ -28,6 +28,20 @@ Or
  
 Download magento from https://magento.com/tech-resources/download
 
+### 3.3 Latest via Composer
+
+Inside `./`
+
+    mkdir '__project'
+    
+    bin/local create /app/__project
+ 
+Enter valid Magento keys
+
+    sudo rsync -azvp __project/ ./ --remove-source-files
+    
+    sudo rm '__project' -rf
+
 ## 4 Start Containers
 
 Inside `./`
