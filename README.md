@@ -28,13 +28,23 @@ Or
  
 Download magento from https://magento.com/tech-resources/download
 
-### 3.3 Latest via Composer
+### 3.3 (1) Latest via Composer
 
 Inside `./`
 
     mkdir '__project'
     
     bin/local create /app/__project
+    
+#### 3.3 (2) Specific via Composer
+
+    mkdir '__project'
+    
+    bin/local cli
+    
+    cd __project
+    
+    composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.4.3-p3 ./
  
 Enter valid Magento keys
 
