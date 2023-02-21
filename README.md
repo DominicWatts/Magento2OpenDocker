@@ -36,7 +36,7 @@ Inside `./`
     
     bin/local create /app/__project
     
-#### 3.3 (2) Specific via Composer
+### 3.3 (2) Specific via Composer
 
     mkdir '__project'
     
