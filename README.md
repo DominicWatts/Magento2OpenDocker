@@ -26,9 +26,8 @@ Or
     
 Or
 
-    bin/local composer create-project --repository-url=https://mirror.mage-os.org/ magento/project-community-edition:2.4.5 .
-
-
+    composer create-project --repository-url=https://mirror.mage-os.org/ magento/project-community-edition:2.4.5 .
+   
 ### 3.2 (1) Latest via Official Composer
 
 Inside `./`
@@ -117,13 +116,49 @@ SMTP extension config
   - authentication: `plain`
   - username/password: `[blank]`
   
-## 8 Additional
+## 8 Additional Helper script
 
-Helper script
+In `./` outside container
 
     bin/local
+   
+```   
+Arguments:
+  up                Create and start containers
+  down              Destroy containers
+  init              Destroy, re-create and start containers and volumes
+  
+  pull              Pull latest images
+  stop              Stop containers
+  start             Start containers
+  restart           Restart containers
+
+  build             Deployment process
+  cachedev          Development cache settings
+  cacheflush        Flush cache
+  cacheon           All cache on
+  cacheoff          All cache off
+  cli               Connect to bash
+  cron              Run cron
+  db                Connect to db
+  di                Run di compile
+  magento           Run Magento command
+  theme             Run theme compilation
+  upgrade           Run upgrade command
+  composer          Run composer command
+  create            Run create project command
+```
+Example
+
+    bin/local composer require dominicwatts/faker dominicwatts/magentodevelopbundle
     
-If you have error running local script outside of container try dos2unix
+    bin/local cacheflush
+    
+    bin/local upgrade
+    
+    bin/local magento
+    
+If you have error running local try dos2unix
  
     sudo apt-get install dos2unix
 
