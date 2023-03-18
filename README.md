@@ -70,6 +70,10 @@ Inside `./`
 ### 5.2 Disable 2FA
 
     bin/magento module:disable "Magento_TwoFactorAuth"
+    
+2.4.6
+
+    bin/magento module:disable Magento_TwoFactorAuth Magento_AdminAdobeImsTwoFactorAuth
 
 ## 6 Outside shell container
 
