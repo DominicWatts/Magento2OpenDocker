@@ -23,12 +23,13 @@ Inside `./`
 Or
 
     wget -qO- https://magento.mirror.hypernode.com/releases/magento-2.3.4.tar.gz | tar xfz -
+    
+Or
 
-### 3.2 Direct Download
- 
-Download magento from https://magento.com/tech-resources/download
+    bin/local composer create-project --repository-url=https://mirror.mage-os.org/ magento/project-community-edition:2.4.5 .
 
-### 3.3 (1) Latest via Composer
+
+### 3.2 (1) Latest via Official Composer
 
 Inside `./`
 
@@ -36,7 +37,7 @@ Inside `./`
     
     bin/local create /app/__project
     
-### 3.3 (2) Specific via Composer
+### 3.3 (2) Specific via Official Composer
 
     mkdir '__project'
     
