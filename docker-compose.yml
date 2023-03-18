@@ -47,20 +47,37 @@ services:
       magento:
         aliases:
           - redis.magento2.docker
-  elasticsearch:
-    hostname: elasticsearch.magento2.docker
-    image: 'magento/magento-cloud-docker-elasticsearch:7.10-1.3.2'
+  # elasticsearch:
+  #   hostname: elasticsearch.magento2.docker
+  #   image: 'magento/magento-cloud-docker-opensearch:2.4-1.3.5'
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   environment:
+  #     - cluster.name=docker-cluster
+  #     - bootstrap.memory_lock=true
+  #   networks:
+  #     magento:
+  #       aliases:
+  #         - elasticsearch.magento2.docker
+  opensearch:
+    hostname: opensearch.magento2.docker
+    image: 'magento/magento-cloud-docker-opensearch:2.4-1.3.5'
     ulimits:
       memlock:
         soft: -1
         hard: -1
     environment:
       - cluster.name=docker-cluster
+      - discovery.type=single-node
+      - discovery.seed_hosts=opensearch
       - bootstrap.memory_lock=true
+      - DISABLE_SECURITY_PLUGIN=true
     networks:
       magento:
         aliases:
-          - elasticsearch.magento2.docker
+          - opensearch.magento2.docker    
   fpm:
     hostname: fpm.magento2.docker
     image: 'magento/magento-cloud-docker-php:8.1-fpm-1.3.2'
@@ -132,7 +149,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-      elasticsearch:
+      opensearch:
         condition: service_healthy
   mailhog:
     hostname: mailhog.magento2.docker
