@@ -58,10 +58,18 @@ Enter valid Magento keys
 Inside `./`
 
     docker-compose up -d
+    
+Shortcut
+
+    bin/local up    
 
 ## 5 Go inside shell container
 
     docker-compose run --rm deploy
+    
+Shortcut
+
+    bin/local cli
 
 ### 5.1 Install
 
@@ -75,9 +83,17 @@ Inside `./`
 
     bin/magento module:disable "Magento_TwoFactorAuth"
     
+Outside shell container
+
+    bin/local magento module:disable Magento_TwoFactorAuth
+    
 2.4.6
 
     bin/magento module:disable Magento_TwoFactorAuth Magento_AdminAdobeImsTwoFactorAuth
+    
+Outside shell container
+
+    bin/local magento module:disable Magento_TwoFactorAuth Magento_AdminAdobeImsTwoFactorAuth 
 
 ## 6 Outside shell container
 
@@ -100,3 +116,15 @@ SMTP extension config
   - protocol: `none`
   - authentication: `plain`
   - username/password: `[blank]`
+  
+## 8 Additional
+
+Helper script
+
+    bin/local
+    
+If you have error running local script outside of container try dos2unix
+ 
+    sudo apt-get install dos2unix
+
+    dos2unix ./bin/local
