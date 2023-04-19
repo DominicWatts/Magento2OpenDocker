@@ -49,7 +49,7 @@ services:
           - redis.magento2.docker
   # elasticsearch:
   #   hostname: elasticsearch.magento2.docker
-  #   image: 'magento/magento-cloud-docker-opensearch:2.4-1.3.5'
+  #   image: 'magento/magento-cloud-docker-elasticsearch:7.10-1.3.2'
   #   ulimits:
   #     memlock:
   #       soft: -1
