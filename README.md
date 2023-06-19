@@ -4,9 +4,9 @@ Collection of Magento 2 Cloud Docker docker-compose configuration files for runn
 
 ## 1 Fetch from git
 
-git clone git@github.com:DominicWatts/Magento2OpenDocker.git ./
+    git clone git@github.com:DominicWatts/Magento2OpenDocker.git ./
 
-rm .git -rf
+    rm .git -rf
 
 ## 2 Add the following entry to OS hosts file
 
