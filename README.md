@@ -43,6 +43,8 @@ Inside `./`
     bin/local cli
     
     cd __project
+
+    composer global config http-basic.repo.magento.com <user> <password>
     
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.4.3-p3 ./
  
