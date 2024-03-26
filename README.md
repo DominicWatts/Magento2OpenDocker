@@ -12,31 +12,9 @@ Collection of Magento 2 Cloud Docker docker-compose configuration files for runn
 
     127.0.0.1 magento2.docker
 
-## 3 Download
+## 3 Get Magento
 
 Inside `./`
-
-### 3.1 Hypernode
-
-    wget -qO- https://magento.mirror.hypernode.com/releases/magento2-latest.tar.gz | tar xfz -
-
-Or
-
-    wget -qO- https://magento.mirror.hypernode.com/releases/magento-2.3.4.tar.gz | tar xfz -
-    
-Or
-
-    composer create-project --repository-url=https://mirror.mage-os.org/ magento/project-community-edition:2.4.5 .
-   
-### 3.2 (1) Latest via Official Composer
-
-Inside `./`
-
-    mkdir '__project'
-    
-    bin/local create /app/__project
-    
-### 3.3 (2) Specific via Official Composer
 
     mkdir '__project'
     
@@ -44,11 +22,23 @@ Inside `./`
     
     cd __project
 
+### 3.1 Option 1 UnOfficial Composer
+
+    composer create-project --repository-url=https://mirror.mage-os.org/ magento/project-community-edition:2.4.4-p2 ./
+
+### 3.2 Option 2 Official Composer
+
     composer global config http-basic.repo.magento.com <public_key> <private_key>
     
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.4.3-p3 ./
  
-Enter valid Magento keys
+Enter valid Magento keys for <public_key> and <private_key>
+
+### 3.3 Move files
+
+`outside container`
+
+Inside `./`
 
     sudo rsync -azvp __project/ ./ --remove-source-files
     
@@ -65,10 +55,6 @@ Shortcut
     bin/local up    
 
 ## 5 Go inside shell container
-
-    docker-compose run --rm deploy
-    
-Shortcut
 
     bin/local cli
 
