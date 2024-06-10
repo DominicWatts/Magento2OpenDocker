@@ -44,85 +44,85 @@ fi;
 
 case "$1" in
     up)
-        docker-compose -f $COMPOSE up -d
+        docker compose -f $COMPOSE up -d
         ;;
     down)
-        docker-compose -f $COMPOSE down --remove-orphans
+        docker compose -f $COMPOSE down --remove-orphans
         ;;
     init)
         read -p "Any existing data volumes will be removed. Are you sure? [y/N] " -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]
         then
-            docker-compose -f $COMPOSE down -v --remove-orphans
-            docker-compose -f $COMPOSE up -d
+            docker compose -f $COMPOSE down -v --remove-orphans
+            docker compose -f $COMPOSE up -d
         fi
         ;;        
     pull)
-        docker-compose -f $COMPOSE pull
+        docker compose -f $COMPOSE pull
         ;;
     stop)
-        docker-compose -f $COMPOSE stop
+        docker compose -f $COMPOSE stop
         ;;
     start)
-        docker-compose -f $COMPOSE start
+        docker compose -f $COMPOSE start
         ;;
     restart)
-        docker-compose -f $COMPOSE restart
+        docker compose -f $COMPOSE restart
         ;;
     build)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
-        docker-compose -f $COMPOSE run --rm deploy magento-command setup:upgrade
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
-        docker-compose -f $COMPOSE run --rm deploy magento-command setup:di:compile
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker compose -f $COMPOSE run --rm deploy magento-command setup:upgrade
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker compose -f $COMPOSE run --rm deploy magento-command setup:di:compile
         for loc in ${locales[@]}; do
-            docker-compose -f $COMPOSE run --rm deploy magento-command setup:static-content:deploy -f $loc -j 4
+            docker compose -f $COMPOSE run --rm deploy magento-command setup:static-content:deploy -f $loc -j 4
         done
         ;;             
     cachedev)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:enable
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:disable layout block_html full_page
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:enable
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:disable layout block_html full_page
         ;;
     cacheflush)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:clean
         ;;
     cacheon)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:enable
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:enable
         ;;
     cacheoff)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:disable
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:disable
         ;;
     cli)
-        docker-compose -f $COMPOSE run --rm deploy
+        docker compose -f $COMPOSE run --rm deploy
         ;;
     cron)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cron:run
+        docker compose -f $COMPOSE run --rm deploy magento-command cron:run
         ;;
     db)
-        docker-compose -f $COMPOSE exec db sh -c 'mysql -u magento2 -pmagento2 magento2 "$@"'
+        docker compose -f $COMPOSE exec db sh -c 'mysql -u magento2 -pmagento2 magento2 "$@"'
         ;;
     di)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
-        docker-compose -f $COMPOSE run --rm deploy magento-command setup:di:compile
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker compose -f $COMPOSE run --rm deploy magento-command setup:di:compile
         ;;
     composer)
-        docker-compose -f $COMPOSE run --rm deploy composer ${@:2}
+        docker compose -f $COMPOSE run --rm deploy composer ${@:2}
         ;;        
     magento)
-        docker-compose -f $COMPOSE run --rm deploy magento-command ${@:2}
+        docker compose -f $COMPOSE run --rm deploy magento-command ${@:2}
         ;;
     theme)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:clean
         for loc in ${locales[@]}; do
-            docker-compose -f $COMPOSE run --rm deploy magento-command setup:static-content:deploy -f $loc -j 4
+            docker compose -f $COMPOSE run --rm deploy magento-command setup:static-content:deploy -f $loc -j 4
         done        
         ;;
     upgrade)
-        docker-compose -f $COMPOSE run --rm deploy magento-command cache:clean
-        docker-compose -f $COMPOSE run --rm deploy magento-command setup:upgrade
+        docker compose -f $COMPOSE run --rm deploy magento-command cache:clean
+        docker compose -f $COMPOSE run --rm deploy magento-command setup:upgrade
         ;;
     create)
-        docker-compose -f $COMPOSE run --rm deploy composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition ${@:2}
+        docker compose -f $COMPOSE run --rm deploy composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition ${@:2}
         ;;
     *)
         printf "$USAGE"
