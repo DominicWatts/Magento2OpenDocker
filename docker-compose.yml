@@ -167,7 +167,7 @@ services:
   #   extends: generic
   #   command: run-cron
   #   environment:
-  #     CRONTAB: '* * * * * root cd /app && /usr/local/bin/php bin/magento cron:run >> /app/var/log/cron.log'
+  #     CRONTAB: '* * * * * root cd /app && /usr/local/bin/php -d memory_limit=768M bin/magento cron:run >> /app/var/log/cron.log'
   #   volumes:
   #     - '.:/app:delegated'
   #   networks:
