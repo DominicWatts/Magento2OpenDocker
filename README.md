@@ -19,6 +19,12 @@ Inside `./`
     mkdir '__project'
     
     bin/local cli
+
+If Linux bad interpreter : error
+
+    dos2unix ./bin/local
+
+Then continue
     
     cd __project
 
